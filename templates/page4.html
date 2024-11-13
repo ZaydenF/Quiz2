@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block heading %}Home{% endblock %}
+
+{% block body %}
+<h1>Results</h1>
+<p>Here are your results for the questions.</p>
+<p>Your answer for question One was {{ session['answer1'] }}  and it was James Monroe </p>
+<p>Your answer for question Two was {{ session['answer2'] }} and it was William Henry Harrison</p>
+<p>Your answer for question Three was  {{ session['answer3'] }} and it was JFK</p>
+<h1>Your final score is: {{grade}} / 3 </h1> 
+{% endblock %}
