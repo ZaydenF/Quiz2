@@ -2,6 +2,8 @@ import os
 from flask import Flask, url_for, render_template, request
 from flask import redirect
 from flask import session
+import os
+import time
 
 app = Flask(__name__)
 
@@ -24,22 +26,28 @@ def startOver():
 
 @app.route('/page1')
 def renderPage1():
+    session["start_time"] = time.time()
     return render_template('Page1.html')
 
 @app.route('/page2',methods=['GET','POST'])
 def renderPage2():
-    session["answer1"]=request.form['Name']
+    if "answer1" not in session:
+        session["answer1"]=request.form['Name']
     return render_template('page2.html')
 
 @app.route('/page3',methods=['GET','POST'])
 def renderPage3():
-    session["answer2"]=request.form['Name2']
+    if "answer2" not in session:
+        session["answer2"]=request.form['Name2']
     return render_template('page3.html')
 @app.route('/page4',methods=['GET','POST'])
 def renderPage4():
-    session["answer3"]=request.form['Name3']
+    if "answer3" not in session:
+        session["answer3"]=request.form['Name3']
+    session["end_time"] = time.time()
+    time_taken = session["end_time"] - session["start_time"]
     finalScore=get_score()
-    return render_template ('page4.html')
+    return render_template ('page4.html', grade=finalScore, time_taken=time_taken)
 
 def get_score():
     scoreVal=0
@@ -51,4 +59,4 @@ def get_score():
         scoreVal+=1
     return scoreVal
 if __name__=="__main__":
-    app.run(debug=False)
+    app.run(debug=True)
