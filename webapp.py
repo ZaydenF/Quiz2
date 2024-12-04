@@ -59,4 +59,4 @@ def get_score():
         scoreVal+=1
     return scoreVal
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=False)
